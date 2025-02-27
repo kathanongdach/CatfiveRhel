@@ -26,4 +26,4 @@ jobs:
         env:
           FRESHSERVICE_API_KEY: ${{ secrets.FRESHSERVICE_API_KEY }}
           LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
-        run: python LineNotification_Fresh.py
+        run: python LineNotificatin_Fresh.py
