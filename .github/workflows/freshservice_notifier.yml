@@ -1,0 +1,29 @@
+name: Freshservice Notifier
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # รันเวลา 09:00 น. (UTC+7 -> UTC+2)
+    - cron: '0 6 * * *'  # รันเวลา 13:00 น. (UTC+7 -> UTC+6)
+    - cron: '0 8 * * *'  # รันเวลา 15:00 น. (UTC+7 -> UTC+8)
+  workflow_dispatch:  # ให้เรากด run ได้เองด้วย
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run the script
+        env:
+          FRESHSERVICE_API_KEY: ${{ secrets.FRESHSERVICE_API_KEY }}
+          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
+        run: python LineNotification_Fresh.py
